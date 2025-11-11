@@ -127,5 +127,3 @@ Delete individual project folders to remove historical runs without affecting ot
 - Feedback and feature requests are welcome via issues or email.
 
 ---
-
-**Happy analyzing!**
