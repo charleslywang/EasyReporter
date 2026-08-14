@@ -1,6 +1,6 @@
 # EasyReporter
 
-> EasyReporter is a portable fluorescence cell-analysis app for Windows. It lets you load TIFF images, ZIP archives, or folders, runs Cellpose to segment cells and measure fluorescence, offers interactive charts (box, bar, scatter, heatmap), and generates AI summaries—all without extra Python setup.
+> EasyReporter is a portable Windows application for quantifying gene-editing efficiency from fluorescence images. It integrates Cellpose-based segmentation with intensity profiling, delivers interactive multi-plot visualization (box/bar/scatter/heatmap), and outputs AI-generated reports, all with zero external Python configuration.
 
 ---
 
