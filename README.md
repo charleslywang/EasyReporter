@@ -1,6 +1,7 @@
 # EasyReporter
 
-> EasyReporter is a portable Windows application for quantifying gene-editing efficiency from fluorescence images. It integrates Cellpose-based segmentation with intensity profiling, delivers interactive multi-plot visualization (box/bar/scatter/heatmap), and outputs AI-generated reports, all with zero external Python configuration.
+
+> EasyReporter is a portable Windows application for quantifying gene-editing efficiency from fluorescence images. It integrates Cellpose-based segmentation with fluorescence intensity profiling, delivers interactive multi-plot visualization (box/bar/scatter/heatmap), and outputs AI-generated analysis reports — all with zero external Python configuration. The UI and reports are available in both English and Chinese.
 
 ---
 
@@ -10,9 +11,10 @@ EasyReporter is a portable fluorescence-cell analysis suite that provides:
 
 - Image upload/import (TIFF files, ZIP archives, local folders)
 - Cellpose-based segmentation and fluorescence intensity quantification
-- Multiple visualization types (box plots, bar charts, scatter plots, heatmaps, etc.)
-- AI-powered experiment summaries, trend analysis, and recommendations
-- A fully bundled Python runtime—no additional installation required
+- Multiple visualization types: cell distribution scatter, clustering scatter, simulated flow cytometry, grouped bar, grouped box, correlation heatmap and correlation scatter
+- AI-powered experiment summaries, trend analysis, and recommendations (OpenAI-compatible services, with optional vision-model per-chart interpretation)
+- HTML and A4 PDF report export
+- A fully bundled Python 3.10 runtime — no additional installation required
 
 ---
 
@@ -27,24 +29,22 @@ EasyReporter is a portable fluorescence-cell analysis suite that provides:
 
 ## 3. Package Contents
 
-After extracting the archive, the `EasyReporter` root folder contains:
+The `EasyReporter` root folder contains:
 
 | Item | Description |
 | --- | --- |
 | `start.bat` | Launch script (double-click to start the app) |
 | `streamlit_app.py` | Main Streamlit application |
-| `02.Code/` | Core logic modules (AI helper, plotting utilities, Cellpose wrapper) |
-| `05.models/` | Bundled Cellpose pretrained models |
+| `Code/` | Core logic modules: Cellpose wrapper (`1.cellpose.py`), fluorescence analysis (`2.Fluorescent_Intensity.py`), chart scripts, AI helper, key manager, PDF renderer |
+| `models/` | Bundled Cellpose pretrained models (`cyto_0` ~ `cyto_3`, `cyto3`) |
 | `python_runtime/` | Portable Python 3.10 runtime with all dependencies |
 | `assets/` | Icon and static resources |
-| `.streamlit/` | Streamlit configuration (theme, etc.) |
-| `README.txt` | Quick-start instructions (English) |
-| `USER_MANUAL_CN.md` | Chinese user manual |
-| `USER_MANUAL_EN.md` | This English manual |
+| `.streamlit/` | Streamlit configuration (theme, upload size limit, etc.) |
+| `requirements.txt` | Python dependency manifest |
+| `config.ini` | Reserved configuration placeholder (currently unused) |
+| `README.md` | This document |
 
 > During runtime, the application stores project data inside `EasyReporter_Projects/`.
-
-> Download package: [https://pan.baidu.com/s/1gopCC2PPV_ng2SiY7pshdQ?pwd=3g4x](https://pan.baidu.com/s/1gopCC2PPV_ng2SiY7pshdQ?pwd=3g4x)
 
 ---
 
@@ -63,22 +63,28 @@ After extracting the archive, the `EasyReporter` root folder contains:
 
 ### Step 1: Data Processing
 - Upload TIFF files, a ZIP archive, or import from a local folder.
-- The files are copied into the current project’s `01.Data/`, then Cellpose performs segmentation and fluorescence quantification.
+- Files are copied into the current project's `Data/`, then Cellpose performs segmentation (output to `Cellpose_output/Cell_Counts/`) and fluorescence quantification (output to `Cellpose_output/Fluorescence_Intensity/`).
+- Input images should come in matched pairs, e.g. `sample_EGFP-1.tif` + `sample_mcherry-1.tif`. The default matching distance threshold is 15 pixels.
 
 ### Step 2: Chart Generation
-- Choose from multiple visualization types, configure grouping/metrics/colors, and preview the charts in real time.
+- Choose from multiple visualization types, configure colors/sizes/metrics, and generate charts in real time.
+- Charts are written under `Chart/`; correlation heatmaps and scatter plots go to `correlation/` and `correlation_scatter/` respectively.
 
 ### Step 3: Download Outputs
-- Download the generated charts, raw tables, and export artifacts in a single click for reporting and archiving.
+- Preview the generated charts and download them as ZIP archives, along with raw tables and export artifacts.
 
 ### Step 4: AI Insights
-- Enter an API key (or rely on the bundled encrypted default) to request AI-generated summaries, trend analysis, and recommendations.
+- Select an OpenAI-compatible provider (OpenAI / Kimi / DeepSeek) and a model, then generate a structured AI report.
+- DeepSeek is pre-configured with a bundled encrypted key by default; you can switch providers and enter your own API key.
+- Vision-capable models (e.g. `gpt-4o`, `deepseek-vl-7b-chat`) attach chart images for multimodal per-chart interpretation.
+- Reports can be downloaded as HTML or A4 PDF.
 
 ---
 
 ## 6. Language Toggle
 
 - Use the language switcher in the top-right corner of the interface to toggle between English and Chinese.
+- All UI text, including the sidebar and status messages, switches accordingly. Text inside generated charts always stays in English to avoid font issues.
 
 ---
 
@@ -88,35 +94,52 @@ During operation, per-project data resides under `EasyReporter_Projects/<project
 
 | Subfolder | Description |
 | --- | --- |
-| `01.Data/` | Uploaded/imported raw images (isolated per project) |
-| `03.Cellpose_output/` | Cellpose results (`Cell_Counts/` and `Fluorescence_Intensity/`) |
-| `04.Chart/` | Generated charts and exported files |
-| Misc | Additional artifacts such as AI reports or temp files, depending on features used |
+| `Data/` | Uploaded/imported raw images (isolated per project) |
+| `Cellpose_output/` | Cellpose results (`Cell_Counts/` and `Fluorescence_Intensity/`) |
+| `Chart/` | Generated charts (`Cell_Distribution_Scatter_Plot`, `Cell_Clustering_Scatter_Plot`, `Simulated_Flow_Cytometry_Plot`, `Grouped_Bar_Plot`, `Grouped_Box_Plot`, ...) |
+| `correlation/` | Correlation heatmap workspace (`data/` and `output/`) |
+| `correlation_scatter/` | Correlation scatter workspace (`data/` and `output/`) |
+| `logs/` | Processing logs |
+| `report_cache/` | AI report cache |
 
 Delete individual project folders to remove historical runs without affecting other data or models.
 
 ---
 
-## 8. Backup Recommendations
+## 8. Repository vs. Portable Package
 
-- Regularly back up the entire `EasyReporter_Projects/` directory, or archive specific project folders as needed.
-- For shared or critical environments, place the folder under version control or a scheduled backup solution.
+This repository contains the source code and configuration only. The following large or user-specific assets are listed in `.gitignore` and are **not** committed to Git:
+
+- `python_runtime/` — bundled Python runtime (hundreds of MB)
+- `models/` — Cellpose model files (~126 MB); prepare them locally after cloning
+- `EasyReporter_Projects/` — user experiment data
+- `__pycache__/`, `*.pyc` — Python caches
+
+To run from source:
+
+```bash
+pip install -r requirements.txt
+streamlit run streamlit_app.py
+```
+
+The portable release package ships with all of these assets pre-bundled.
 
 ---
 
 ## 9. Troubleshooting
 
-1. **Application won’t start**: Ensure `python_runtime\python.exe` exists and that `start.bat` sits next to `streamlit_app.py`.
+1. **Application won't start**: Ensure `python_runtime\python.exe` exists and that `start.bat` sits next to `streamlit_app.py`.
 2. **Port already in use**: The app defaults to port 8501; close other instances or edit the port arguments in `start.bat`.
-3. **Cellpose errors**: Verify that `05.models/` is intact; switch to CPU mode or rerun if necessary.
+3. **Cellpose errors**: Verify that `models/` is intact; switch to CPU mode or rerun if necessary.
 4. **AI features unavailable**: Check network access and API key validity. Configure proxies at the OS level if required.
-5. **UI not responding**: Refresh the browser or stop (`Ctrl + C`) and relaunch the application.
+5. **PDF download fails**: The HTML report always works; PDF rendering needs system Edge/Chrome, with a ReportLab fallback.
+6. **UI not responding**: Refresh the browser or stop (`Ctrl + C`) and relaunch the application.
 
 ---
 
 ## 10. Customization & Extensions
 
-- All business logic resides in `02.Code/`. Extend chart types, processing steps, or AI prompts there.
+- All business logic resides in `Code/`. Extend chart types, processing steps, or AI prompts there.
 - Restart via `start.bat` after making changes for them to take effect.
 
 ---
