@@ -46,6 +46,8 @@ The `EasyReporter` root folder contains:
 
 > During runtime, the application stores project data inside `EasyReporter_Projects/`.
 
+> Download package: [https://pan.baidu.com/s/14r-GpiUvt6n-AKGQjHMTKA?pwd=bnaq](https://pan.baidu.com/s/14r-GpiUvt6n-AKGQjHMTKA?pwd=bnaq)
+
 ---
 
 ## 4. Quick Start
@@ -122,7 +124,7 @@ pip install -r requirements.txt
 streamlit run streamlit_app.py
 ```
 
-The portable release package ships with all of these assets pre-bundled.
+The portable release package (from the download link above) ships with all of these assets pre-bundled.
 
 ---
 
