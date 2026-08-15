@@ -28,7 +28,7 @@ try:
 except Exception:
     OPENAI_AVAILABLE = False
 
-sys.path.append('02.Code')
+sys.path.append('Code')
 try:
     from AI_helper import (
         get_openai_key,
@@ -158,15 +158,15 @@ TRANSLATIONS = {
         "step1_start_processing_title": "1.3 开始处理",
         "start_data_processing_button": "🚀 开始数据处理",
         "please_upload_images_error": "请先上传图像文件或从文件夹导入",
-        "zip_info": "上传一个包含 TIFF/TIF 图像的ZIP压缩包（最大支持5GB）；系统会将其中的图像解压到工作目录 01.Data 中进行处理",
+        "zip_info": "上传一个包含 TIFF/TIF 图像的ZIP压缩包（最大支持5GB）；系统会将其中的图像解压到工作目录 Data 中进行处理",
         "select_tiff_label": "选择 TIFF 图像文件（支持 GFP 与 mCherry 通道）",
         "uploader_help": "请上传成对的 GFP 与 mCherry 图像，示例：sample_EGFP-1.tif, sample_mcherry-1.tif",
         "upload_zip_label": "上传包含 TIFF/TIF 图像的 ZIP 压缩包",
-        "folder_info": "选择一个包含 TIFF/TIF 图像的本地文件夹；系统会将其复制到工作目录 01.Data 中进行处理",
+        "folder_info": "选择一个包含 TIFF/TIF 图像的本地文件夹；系统会将其复制到工作目录 Data 中进行处理",
         "local_dir_path": "本地目录路径",
         "include_subdirs": "包含子目录",
-        "clear_target": "导入前清空目标目录(01.Data)",
-        "clear_target_zip": "解压前清空目标目录(01.Data)",
+        "clear_target": "导入前清空目标目录(Data)",
+        "clear_target_zip": "解压前清空目标目录(Data)",
         "save_files": "💾 保存上传的文件",
         "extract_zip": "📦 解压ZIP到输入目录",
         "import_from_dir": "📥 从该目录导入图像",
@@ -276,10 +276,10 @@ TRANSLATIONS = {
             "chart_flow_cytometry_desc": "模拟流式细胞术的散点图表示",
             
             "correlation_section_title": "2.4 相关性热图（皮尔逊r）",
-            "correlation_section_desc": "自动扫描 06.correlation/data 下的表格文件（CSV/TSV/Excel），批量生成 皮尔逊相关系数(r) 热图到 06.correlation/output。",
+            "correlation_section_desc": "自动扫描 correlation/data 下的表格文件（CSV/TSV/Excel），批量生成 皮尔逊相关系数(r) 热图到 correlation/output。",
             "correlation_data_dir": "数据目录：{}",
             "correlation_upload_files": "上传相关性数据表（CSV/TSV/XLSX/XLS）",
-            "correlation_clear_before": "保存前清空数据目录(06.correlation/data)",
+            "correlation_clear_before": "保存前清空数据目录(correlation/data)",
             "correlation_generate_btn": "✨ 生成相关性热图（皮尔逊r）",
             "correlation_running": "正在生成相关性热图，请稍候...",
             "correlation_run_success": "✅ 相关性热图生成完成！",
@@ -419,7 +419,114 @@ TRANSLATIONS = {
             "step_status_not_completed": "⏳ 未完成",
             "no_overall_report": "暂无整体分析报告内容。",
             "could_not_load_image": "无法加载图片: {}",
-            "per_chart_ai_insights_title": "### 每图AI解读"
+            "per_chart_ai_insights_title": "### 每图AI解读",
+            "ai_not_available_warning": "AI 功能未启用，缺少: {}。如需启用，请安装相应依赖并放回 AI_helper。",
+            "files_saved_success": "文件保存成功!",
+            "files_save_failed": "保存文件失败: {}",
+            "delete_file_failed": "无法删除 {}: {}",
+            "step1_starting_process": "开始数据处理(模式: {})...",
+            "cellpose_segmenting": "正在运行 Cellpose 分割...",
+            "cellpose_failed_error": "Cellpose 处理失败",
+            "fluor_analyzing": "正在分析荧光强度...",
+            "fluor_failed_error": "荧光强度分析失败",
+            "processing_completed_status": "数据处理完成!",
+            "processing_completed_success": "🎉 数据处理完成!现在可以生成图表。",
+            "page_refresh_info": "📋 页面即将刷新以显示步骤 2 和 3...",
+            "data_processing_failed": "数据处理失败: {}",
+            "existing_charts_detected": "✅ 检测到已有图表数据!",
+            "skip_step2_btn": "⏭️ 跳过步骤2(使用现有图表)",
+            "redo_step2_btn": "🔄 重新生成图表",
+            "cleared_old_charts": "已清理旧的图表数据",
+            "clear_charts_failed": "清理图表数据失败: {}",
+            "step2_skipped_info": "📊 步骤2已跳过，使用现有图表数据进行AI报告生成",
+            "corr_scatter_size_color_title": "⚙️ 图片大小与散点颜色设置",
+            "image_size_inches": "**图片尺寸 (英寸)**",
+            "width_label": "宽度",
+            "height_label": "高度",
+            "scatter_colors_hex": "**散点颜色 (HEX格式)**",
+            "group1_color": "第一组 (FACS vs AI)",
+            "group2_color": "第二组 (FACS vs Amplicon)",
+            "group3_color": "第三组 (AI vs Amplicon)",
+            "scatter_module_error": "散点图模块错误: {}",
+            "correlation_preview_error": "相关性预览错误: {}",
+            "charts_detected": "✅ 检测到图表数据!",
+            "skip_step3_btn": "⏭️ 跳过步骤3(直接进行AI解读)",
+            "step3_skipped_preview": "已跳过步骤3预览，可直接进行步骤4 AI解读",
+            "view_chart_preview_btn": "👁️ 查看图表预览",
+            "step3_skipped_info": "📊 步骤3已跳过，可直接进行步骤4的AI报告生成",
+            "ai_summary_complete_layered": "数据汇总完成，开始分层AI解读...",
+            "ai_generating_layered_report": "正在生成分层AI解读报告...",
+            "ai_rate_limit_info": "为避免 OpenAI 429 速率限制，我们将在每次AI调用之间自动等待约 {} 秒。",
+            "ai_reused_report_status": "已复用同一批数据的报告。",
+            "ai_reused_report_info": "数据和分析设置未变，已复用上次报告，内容保持一致。",
+            "ai_layered_complete": "分层AI解读完成!",
+            "ai_no_valid_content": "未生成有效的AI解读内容",
+            "ai_interpretation_failed": "AI解读失败",
+            "ai_layered_error": "分层AI解读生成错误: {}",
+            "ai_generation_error_status": "AI解读生成错误",
+            "ai_process_error": "AI解读过程错误: {}",
+            "ai_interpretation_success_log": "分层AI解读成功完成",
+            "charts_collected_info": "收集到 {} 个图表类别，共 {} 张图片",
+            "no_charts_warning": "未收集到任何图表，请先生成图表",
+            "proteins_targets_found": "找到 {} 个蛋白，共 {} 个靶点",
+            "protein_targets_detail": "  • {}: {} 个靶点 ({})",
+            "no_protein_groups_warning": "未找到蛋白和靶点分组数据",
+            "select_data_per_target_title": "#### 为每个靶点选择展示的数据",
+            "select_data_hint": "💡 提示：每个靶点选择一个数据ID，报告中将为每种图表类型展示所有靶点的图片（一行3张）",
+            "protein_expander_title": "🧬 {} 蛋白 ({} 个靶点)",
+            "select_data_for": "选择 {}-{} 的数据",
+            "selected_caption": "已选择: {} (将在报告中展示)",
+            "targets_selected_success": "✅ 已为 {} 个靶点选择数据",
+            "current_selection_caption": "当前选择详情: ",
+            "load_group_failed": "无法加载数据分组: {}",
+            "pdf_timeout_warning": "PDF 转换超时，正在使用备用方案...",
+            "browser_pdf_failed": "浏览器 PDF 转换失败: {}，正在使用备用方案...",
+            "simple_pdf_fallback_info": "📄 正在使用简易 PDF 备用方案生成报告...",
+            "pdf_missing_deps_error": "缺少PDF生成依赖: {}",
+            "pdf_detailed_error": "详细错误信息: {}",
+            "html_report_by_group_suffix": " - 按实验组别",
+            "group_analysis_heading": "{} 组分析",
+            "chart_analysis_heading": "{}分析",
+            "statistical_charts_heading": "统计分析图表",
+            "ai_comprehensive_analysis_heading": "🤖 AI 综合分析",
+            "key_findings_recommendations_heading": "🔍 关键发现与建议",
+            "quick_start_ai_info": "🎯 检测到项目中已有数据!您可以直接跳到AI解读步骤。",
+            "quick_start_ai_btn": "⚡ 快速进入AI解读(跳过步骤1)",
+            "quick_mode_enabled": "已启用快捷模式，您可以在步骤2选择是否重新生成图表!",
+            "start_over_btn": "🔄 从头开始(重新运行所有步骤)",
+            "start_from_step1": "将从步骤1开始",
+            "current_project_label": "📌 当前项目: **{}**",
+            "project_data_status": "**项目数据状态:**",
+            "raw_images_label": "原始图片",
+            "segmentation_results_label": "细胞分割结果",
+            "fluorescence_data_label": "荧光强度数据",
+            "statistical_charts_label": "统计图表",
+            "cellpose_mode_label_status": "Cellpose 模式: {} {}",
+            "debug_info_expander": "🔧 调试信息",
+            "session_state_label": "会话状态:",
+            "environment_check_header": "🔍 环境检测",
+            "clear_work_dir_btn": "🗑️ 清空工作目录",
+            "work_dir_cleared": "工作目录已清空",
+            "cellpose_log_running": "正在运行命令: {}",
+            "cellpose_log_working_dir": "工作目录: {}",
+            "cellpose_log_starting": "开始 Cellpose 处理，以下是实时日志:",
+            "color_number_label": "颜色 {}",
+            "ready_to_use": "👆 准备就绪!",
+            "cellpose_execution_error_log": "Cellpose 执行错误: {}",
+            "cellpose_install_suggestion": "提示: 请安装 cellpose 或使用 Apptainer 模式",
+            "cellpose_processing_failed_log": "Cellpose 处理失败: {}",
+            "cellpose_processing_success_log": "Cellpose 处理成功 ({})",
+            "correlation_section_error": "相关性分析出错: {}",
+            "execution_error_log": "执行错误: {}",
+            "fluor_analysis_error_log": "荧光分析出错: {}",
+            "fluor_analysis_failed_log": "荧光分析失败: {}",
+            "fluor_analysis_succeeded_log": "荧光分析成功",
+            "no_ai_report_available": "暂无AI报告",
+            "no_files_selected": "未选择文件",
+            "realtime_log_label": "实时日志",
+            "save_failed": "保存文件失败: {}",
+            "time_min": "分",
+            "time_sec": "秒"
     },
     "en": {
         "app_title": "🔬 EasyReporter - Fluorescent Cell Analysis Tool",
@@ -462,15 +569,15 @@ TRANSLATIONS = {
         "upload_tiff": "Upload TIFF Files",
         "upload_zip": "Upload ZIP Archive",
         "select_folder": "Select Local Directory",
-        "zip_info": "Upload a ZIP archive containing TIFF/TIF images (max 5GB supported); the system will extract them to the working directory 01.Data for processing",
+        "zip_info": "Upload a ZIP archive containing TIFF/TIF images (max 5GB supported); the system will extract them to the working directory Data for processing",
         "select_tiff_label": "Select TIFF Image Files (GFP and mCherry channels supported)",
         "uploader_help": "Please upload paired GFP and mCherry image files, filename format example: sample_EGFP-1.tif, sample_mcherry-1.tif",
         "upload_zip_label": "Upload ZIP containing TIFF/TIF images",
-        "folder_info": "Select a local folder containing TIFF/TIF images; the system will copy them to the working directory 01.Data for processing",
+        "folder_info": "Select a local folder containing TIFF/TIF images; the system will copy them to the working directory Data for processing",
         "local_dir_path": "Local Directory Path",
         "include_subdirs": "Include Subdirectories",
-        "clear_target": "Clear target directory before import (01.Data)",
-        "clear_target_zip": "Clear target directory before extraction (01.Data)",
+        "clear_target": "Clear target directory before import (Data)",
+        "clear_target_zip": "Clear target directory before extraction (Data)",
         "save_files": "💾 Save Uploaded Files",
         "extract_zip": "📦 Extract ZIP to Input Directory",
         "import_from_dir": "📥 Import Images from Directory",
@@ -580,10 +687,10 @@ TRANSLATIONS = {
             "chart_flow_cytometry_desc": "Scatter plot representation of simulated flow cytrometry",
             
             "correlation_section_title": "2.4 Correlation Heatmap (Pearson r)",
-            "correlation_section_desc": "Auto-scan tables under 06.correlation/data (CSV/TSV/Excel) and batch generate Pearson (r) correlation heatmaps into 06.correlation/output.",
+            "correlation_section_desc": "Auto-scan tables under correlation/data (CSV/TSV/Excel) and batch generate Pearson (r) correlation heatmaps into correlation/output.",
             "correlation_data_dir": "Data directory: {}",
             "correlation_upload_files": "Upload correlation tables (CSV/TSV/XLSX/XLS)",
-            "correlation_clear_before": "Clear data directory before saving (06.correlation/data)",
+            "correlation_clear_before": "Clear data directory before saving (correlation/data)",
             "correlation_generate_btn": "✨ Generate Correlation Heatmap (Pearson r)",
             "correlation_running": "Generating correlation heatmaps, please wait...",
             "correlation_run_success": "✅ Correlation heatmap generation completed!",
@@ -723,7 +830,113 @@ TRANSLATIONS = {
             "step_status_not_completed": "⏳ Not Completed",
             "no_overall_report": "No overall analysis report content.",
             "could_not_load_image": "Could not load image: {}",
-            "per_chart_ai_insights_title": "### Per-chart AI insights"
+            "per_chart_ai_insights_title": "### Per-chart AI insights",
+            "ai_not_available_warning": "AI features are not enabled, missing: {}. To enable them, install the required dependencies and restore AI_helper.",
+            "files_saved_success": "Files saved successfully!",
+            "files_save_failed": "Failed to save files: {}",
+            "delete_file_failed": "Failed to delete {}: {}",
+            "step1_starting_process": "Starting data processing (mode: {})...",
+            "cellpose_segmenting": "Running Cellpose segmentation...",
+            "cellpose_failed_error": "Cellpose processing failed",
+            "fluor_analyzing": "Analyzing fluorescence intensity...",
+            "fluor_failed_error": "Fluorescence intensity analysis failed",
+            "processing_completed_status": "Data processing completed!",
+            "processing_completed_success": "🎉 Data processing completed! You can now generate charts.",
+            "page_refresh_info": "📋 The page will refresh to show Steps 2 and 3...",
+            "data_processing_failed": "Data processing failed: {}",
+            "existing_charts_detected": "✅ Existing chart data detected!",
+            "skip_step2_btn": "⏭️ Skip Step 2 (use existing charts)",
+            "redo_step2_btn": "🔄 Regenerate Charts",
+            "cleared_old_charts": "Old chart data cleared",
+            "clear_charts_failed": "Failed to clear chart data: {}",
+            "step2_skipped_info": "📊 Step 2 skipped; using existing charts for AI report generation",
+            "corr_scatter_size_color_title": "⚙️ Image Size & Scatter Color Settings",
+            "image_size_inches": "**Image Size (inches)**",
+            "width_label": "Width",
+            "height_label": "Height",
+            "scatter_colors_hex": "**Scatter Colors (HEX format)**",
+            "group1_color": "Group 1 (FACS vs AI)",
+            "group2_color": "Group 2 (FACS vs Amplicon)",
+            "group3_color": "Group 3 (AI vs Amplicon)",
+            "scatter_module_error": "Scatter plot module error: {}",
+            "correlation_preview_error": "Correlation preview error: {}",
+            "charts_detected": "✅ Chart data detected!",
+            "skip_step3_btn": "⏭️ Skip Step 3 (go straight to AI interpretation)",
+            "step3_skipped_preview": "Step 3 preview skipped; you can go straight to Step 4 AI interpretation",
+            "view_chart_preview_btn": "👁️ View Chart Preview",
+            "step3_skipped_info": "📊 Step 3 skipped; you can proceed to Step 4 AI report generation",
+            "ai_summary_complete_layered": "Data summary complete, starting layered AI interpretation...",
+            "ai_generating_layered_report": "Generating layered AI interpretation report...",
+            "ai_rate_limit_info": "To avoid OpenAI 429 rate limits, we will automatically wait about {} seconds between AI calls.",
+            "ai_reused_report_status": "Reused the report for the same input data.",
+            "ai_reused_report_info": "The data and analysis settings are unchanged, so the previous report was reused.",
+            "ai_layered_complete": "Layered AI interpretation complete!",
+            "ai_no_valid_content": "No valid AI interpretation content was generated.",
+            "ai_interpretation_failed": "AI interpretation failed",
+            "ai_layered_error": "Layered AI interpretation error: {}",
+            "ai_generation_error_status": "AI interpretation generation error",
+            "ai_process_error": "AI interpretation process error: {}",
+            "ai_interpretation_success_log": "Structured AI interpretation completed successfully",
+            "charts_collected_info": "Collected {} chart categories with {} images in total",
+            "no_charts_warning": "No charts collected. Please generate charts first.",
+            "proteins_targets_found": "Found {} proteins with {} targets in total",
+            "protein_targets_detail": "  • {}: {} targets ({})",
+            "no_protein_groups_warning": "No protein-target grouping data found.",
+            "select_data_per_target_title": "#### Select Data to Display for Each Target",
+            "select_data_hint": "💡 Tip: select one data ID per target; the report will show images of all targets for each chart type (3 per row)",
+            "protein_expander_title": "🧬 {} protein ({} targets)",
+            "select_data_for": "Select data for {}-{}",
+            "selected_caption": "Selected: {} (will be shown in the report)",
+            "targets_selected_success": "✅ Data selected for {} targets",
+            "current_selection_caption": "Current selection: ",
+            "load_group_failed": "Failed to load data grouping: {}",
+            "pdf_timeout_warning": "PDF conversion timed out; using the backup plan...",
+            "browser_pdf_failed": "Browser PDF conversion failed: {}; using the backup plan...",
+            "simple_pdf_fallback_info": "📄 Generating report using the simplified PDF fallback...",
+            "pdf_missing_deps_error": "Missing PDF generation dependency: {}",
+            "pdf_detailed_error": "Detailed error: {}",
+            "html_report_by_group_suffix": " - By Experimental Group",
+            "group_analysis_heading": "{} Group Analysis",
+            "chart_analysis_heading": "{} Analysis",
+            "statistical_charts_heading": "Statistical Charts",
+            "ai_comprehensive_analysis_heading": "🤖 AI Comprehensive Analysis",
+            "key_findings_recommendations_heading": "🔍 Key Findings & Recommendations",
+            "quick_start_ai_info": "🎯 Existing data detected in the project! You can jump straight to the AI interpretation step.",
+            "quick_start_ai_btn": "⚡ Quick Access to AI Interpretation (skip Step 1)",
+            "quick_mode_enabled": "Quick mode enabled. In Step 2 you can choose whether to regenerate charts.",
+            "start_over_btn": "🔄 Start Over (rerun all steps)",
+            "start_from_step1": "Will start from Step 1",
+            "current_project_label": "📌 Current Project: **{}**",
+            "project_data_status": "**Project Data Status:**",
+            "raw_images_label": "Raw Images",
+            "segmentation_results_label": "Segmentation Results",
+            "fluorescence_data_label": "Fluorescence Intensity Data",
+            "statistical_charts_label": "Statistical Charts",
+            "cellpose_mode_label_status": "Cellpose Mode: {} {}",
+            "debug_info_expander": "🔧 Debug Info",
+            "session_state_label": "Session State:",
+            "environment_check_header": "🔍 Environment Check",
+            "clear_work_dir_btn": "🗑️ Clear Working Directory",
+            "work_dir_cleared": "Working directory cleared",
+            "cellpose_log_running": "Running command: {}",
+            "cellpose_log_working_dir": "Working directory: {}",
+            "cellpose_log_starting": "Starting Cellpose processing, live logs below:",
+            "color_number_label": "Color {}",
+            "cellpose_execution_error_log": "Cellpose execution error: {}",
+            "cellpose_install_suggestion": "Tip: install cellpose or use Apptainer mode",
+            "cellpose_processing_failed_log": "Cellpose processing failed: {}",
+            "cellpose_processing_success_log": "Cellpose processing succeeded ({})",
+            "correlation_section_error": "Correlation analysis error: {}",
+            "execution_error_log": "Execution error: {}",
+            "fluor_analysis_error_log": "Fluorescence analysis error: {}",
+            "fluor_analysis_failed_log": "Fluorescence analysis failed: {}",
+            "fluor_analysis_succeeded_log": "Fluorescence analysis succeeded",
+            "no_ai_report_available": "No AI report available",
+            "no_files_selected": "No files selected",
+            "realtime_log_label": "Real-time log",
+            "save_failed": "Failed to save file: {}",
+            "time_min": "min",
+            "time_sec": "sec"
         }
     }
 
@@ -760,10 +973,10 @@ if (not OPENAI_AVAILABLE or not AI_AVAILABLE) and 'ai_notice' not in st.session_
     with st.sidebar:
         missing_parts = []
         if not OPENAI_AVAILABLE:
-            missing_parts.append('openai 包')
+            missing_parts.append('openai')
         if not AI_AVAILABLE:
-            missing_parts.append('AI_helper 模块')
-        st.warning("AI 功能未启用，缺少: " + ", ".join(missing_parts) + "。如需启用，请安装相应依赖并放回 AI_helper。")
+            missing_parts.append('AI_helper')
+        st.warning(get_text("ai_not_available_warning").format(", ".join(missing_parts)))
 
 # 添加CSS样式
 st.markdown("""
@@ -893,7 +1106,7 @@ class EasyReporterApp:
         if 'openai_api_key' not in st.session_state:
             # 使用加密存储的默认密钥（从AI_helper获取）
             try:
-                sys.path.insert(0, '02.Code')
+                sys.path.insert(0, 'Code')
                 from AI_helper import get_openai_key
                 st.session_state.openai_api_key = get_openai_key()
             except:
@@ -924,7 +1137,7 @@ class EasyReporterApp:
         work_dir = st.session_state.work_dir
         
         # 检查是否有上传的图片
-        data_dir = os.path.join(work_dir, "01.Data")
+        data_dir = os.path.join(work_dir, "Data")
         has_images = False
         if os.path.exists(data_dir):
             for root, dirs, files in os.walk(data_dir):
@@ -933,7 +1146,7 @@ class EasyReporterApp:
                     break
         
         # 检查Cellpose输出
-        cellpose_dir = os.path.join(work_dir, "03.Cellpose_output")
+        cellpose_dir = os.path.join(work_dir, "Cellpose_output")
         cell_counts_dir = os.path.join(cellpose_dir, "Cell_Counts")
         has_cellpose_output = os.path.exists(cell_counts_dir) and len(os.listdir(cell_counts_dir)) > 0
         
@@ -942,7 +1155,7 @@ class EasyReporterApp:
         has_intensity_data = os.path.exists(intensity_dir) and len(os.listdir(intensity_dir)) > 0
         
         # 检查图表 - 更严格的判断：至少要有一个图表子目录且包含图片文件
-        chart_dir = os.path.join(work_dir, "04.Chart")
+        chart_dir = os.path.join(work_dir, "Chart")
         has_charts = False
         if os.path.exists(chart_dir):
             # 检查是否有常见的图表子目录
@@ -993,10 +1206,10 @@ class EasyReporterApp:
             st.session_state.work_dir = work_dir
             
             # 创建必要的子目录
-            os.makedirs(os.path.join(work_dir, "01.Data"), exist_ok=True)
-            os.makedirs(os.path.join(work_dir, "03.Cellpose_output", "Cell_Counts"), exist_ok=True)
-            os.makedirs(os.path.join(work_dir, "03.Cellpose_output", "Fluorescence_Intensity"), exist_ok=True)
-            os.makedirs(os.path.join(work_dir, "04.Chart"), exist_ok=True)
+            os.makedirs(os.path.join(work_dir, "Data"), exist_ok=True)
+            os.makedirs(os.path.join(work_dir, "Cellpose_output", "Cell_Counts"), exist_ok=True)
+            os.makedirs(os.path.join(work_dir, "Cellpose_output", "Fluorescence_Intensity"), exist_ok=True)
+            os.makedirs(os.path.join(work_dir, "Chart"), exist_ok=True)
             
     def log_message(self, message, level="info"):
         """添加日志消息"""
@@ -1154,7 +1367,7 @@ class EasyReporterApp:
                 if not zip_uploaded:
                     st.error(get_text("select_zip_first"))
                 else:
-                    data_dir = os.path.join(st.session_state.work_dir, "01.Data")
+                    data_dir = os.path.join(st.session_state.work_dir, "Data")
                     os.makedirs(data_dir, exist_ok=True)
                     # 可选：清空目标目录
                     if clear_target_zip:
@@ -1227,7 +1440,7 @@ class EasyReporterApp:
                     st.error(get_text("not_valid_dir"))
                 else:
                     st.session_state.last_input_dir = dir_path
-                    data_dir = os.path.join(st.session_state.work_dir, "01.Data")
+                    data_dir = os.path.join(st.session_state.work_dir, "Data")
                     os.makedirs(data_dir, exist_ok=True)
                     
                     # 可选：清空目标目录
@@ -1241,7 +1454,7 @@ class EasyReporterApp:
                                     elif os.path.isdir(item_path):
                                         shutil.rmtree(item_path)
                                 except Exception as e:
-                                    st.warning(f"无法删除 {item_path}: {e}")
+                                    st.warning(get_text("delete_file_failed").format(item_path, e))
                     
                     # 遍历并拷贝图像
                     copied = []
@@ -1279,7 +1492,7 @@ class EasyReporterApp:
                         st.warning(get_text("no_tiff_found_dir"))
         
         # 判断输入目录是否已有可用的图像文件
-        data_dir = os.path.join(st.session_state.work_dir, "01.Data")
+        data_dir = os.path.join(st.session_state.work_dir, "Data")
         has_input_files = False
         if os.path.isdir(data_dir):
             for _r, _d, _f in os.walk(data_dir):
@@ -1331,9 +1544,22 @@ class EasyReporterApp:
             )
 
             # 根据模式调整模型选项
-            # 与标准脚本一致：默认 cyto2_cp3，模型均从 ../05.models 加载
-            model_options = ["cyto2_cp3", "cyto3", "nuclei", "cyto", "cyto2"]
-            default_model = "cyto2_cp3"
+            # 动态扫描项目 models 目录中实际存在的模型（目录内需含同名文件），
+            # 避免选到不存在的模型名导致 Cellpose 回退到官方 cyto 并触发联网下载。
+            models_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models")
+            model_options = []
+            if os.path.isdir(models_dir):
+                for _name in sorted(os.listdir(models_dir)):
+                    _p = os.path.join(models_dir, _name)
+                    if os.path.isdir(_p):
+                        try:
+                            if any(_f == _name for _f in os.listdir(_p)):
+                                model_options.append(_name)
+                        except Exception:
+                            continue
+            if not model_options:
+                model_options = ["cyto3"]
+            default_model = "cyto3" if "cyto3" in model_options else model_options[0]
 
             pretrained_model = st.selectbox(
                 get_text("pretrained_model_label"),
@@ -1376,7 +1602,7 @@ class EasyReporterApp:
     def save_uploaded_files(self, uploaded_files):
         """保存上传的文件到工作目录"""
         try:
-            data_dir = os.path.join(st.session_state.work_dir, "01.Data")
+            data_dir = os.path.join(st.session_state.work_dir, "Data")
             
             for uploaded_file in uploaded_files:
                 file_path = os.path.join(data_dir, uploaded_file.name)
@@ -1384,70 +1610,70 @@ class EasyReporterApp:
                     f.write(uploaded_file.getbuffer())
                     
             st.session_state.uploaded_files = [f.name for f in uploaded_files]
-            self.log_message(f"Successfully saved {len(uploaded_files)} files", "success")
-            st.success("Files saved successfully!")
+            self.log_message(get_text("uploaded_successfully").format(len(uploaded_files)), "success")
+            st.success(get_text("files_saved_success"))
             
         except Exception as e:
-            self.log_message(f"Failed to save files: {str(e)}", "error")
-            st.error(f"Failed to save files: {str(e)}")
+            self.log_message(get_text("files_save_failed").format(str(e)), "error")
+            st.error(get_text("files_save_failed").format(str(e)))
             
     def run_step1_processing(self, mode, use_gpu, pretrained_model, distance_threshold, **kwargs):
         """执行步骤1的数据处理"""
         try:
-            self.log_message(f"Starting data processing (mode: {mode})...", "info")
+            self.log_message(get_text("step1_starting_process").format(mode), "info")
 
             # 创建进度条
             progress_bar = st.progress(0)
             status_text = st.empty()
 
             # 步骤1: 运行Cellpose
-            status_text.text("Running Cellpose segmentation...")
+            status_text.text(get_text("cellpose_segmenting"))
             progress_bar.progress(25)
 
             success1 = self.run_cellpose(mode, use_gpu, pretrained_model, **kwargs)
 
             if not success1:
-                st.error("Cellpose processing failed")
+                st.error(get_text("cellpose_failed_error"))
                 return
 
             progress_bar.progress(50)
 
             # 步骤2: 运行荧光强度分析
-            status_text.text("Analyzing fluorescence intensity...")
+            status_text.text(get_text("fluor_analyzing"))
             progress_bar.progress(75)
 
             success2 = self.run_fluorescence_analysis(distance_threshold)
 
             if not success2:
-                st.error("Fluorescence intensity analysis failed")
+                st.error(get_text("fluor_failed_error"))
                 return
 
             progress_bar.progress(100)
-            status_text.text("Data processing completed!")
+            status_text.text(get_text("processing_completed_status"))
 
             # 标记步骤1完成
             st.session_state.step1_completed = True
-            self.log_message("Data processing completed", "success")
+            self.log_message(get_text("processing_completed_status"), "success")
 
-            st.success("🎉 Data processing completed! You can now generate charts.")
-            st.info("📋 The page will refresh to show Steps 2 and 3...")
+            st.success(get_text("processing_completed_success"))
+            st.info(get_text("page_refresh_info"))
 
             # 强制刷新页面以显示步骤2和步骤3
             time.sleep(1)  # 给用户时间看到成功消息
             st.rerun()
 
         except Exception as e:
-            self.log_message(f"Data processing failed: {str(e)}", "error")
-            st.error(f"Data processing failed: {str(e)}")
+            self.log_message(get_text("data_processing_failed").format(str(e)), "error")
+            st.error(get_text("data_processing_failed").format(str(e)))
             
     def run_cellpose(self, mode, use_gpu, pretrained_model, **kwargs):
         """运行Cellpose处理"""
         try:
             # 构建命令:直接调用 1.cellpose.py,且仅支持 python/apptainer 两种模式
             cmd = [
-                sys.executable, "02.Code/1.cellpose.py",
-                "--parent-folder", os.path.join(st.session_state.work_dir, "01.Data"),
-                "--output-folder", os.path.join(st.session_state.work_dir, "03.Cellpose_output", "Cell_Counts"),
+                sys.executable, "Code/1.cellpose.py",
+                "--parent-folder", os.path.join(st.session_state.work_dir, "Data"),
+                "--output-folder", os.path.join(st.session_state.work_dir, "Cellpose_output", "Cell_Counts"),
                 "--mode", mode,
                 "--pretrained-model", pretrained_model
             ]
@@ -1466,9 +1692,9 @@ class EasyReporterApp:
 
 
             # 执行命令：实时显示进度和日志
-            self.log_message(f"Running command: {' '.join(cmd)}", "info")
-            self.log_message(f"Working directory: {os.getcwd()}", "info")
-            self.log_message("Starting Cellpose processing, live logs below:", "info")
+            self.log_message(get_text("cellpose_log_running").format(' '.join(cmd)), "info")
+            self.log_message(get_text("cellpose_log_working_dir").format(os.getcwd()), "info")
+            self.log_message(get_text("cellpose_log_starting"), "info")
 
             # 创建可跟随长度的自定义进度条和日志容器
             progress_placeholder = st.empty()
@@ -1589,10 +1815,10 @@ class EasyReporterApp:
         try:
             # 构建命令
             cmd = [
-                sys.executable, "02.Code/2.Fluorescent_Intensity.py",
-                "--npy_input", os.path.join(st.session_state.work_dir, "01.Data"),
-                "--txt_input", os.path.join(st.session_state.work_dir, "03.Cellpose_output"),
-                "--output", os.path.join(st.session_state.work_dir, "03.Cellpose_output", "Fluorescence_Intensity"),
+                sys.executable, "Code/2.Fluorescent_Intensity.py",
+                "--npy_input", os.path.join(st.session_state.work_dir, "Data"),
+                "--txt_input", os.path.join(st.session_state.work_dir, "Cellpose_output"),
+                "--output", os.path.join(st.session_state.work_dir, "Cellpose_output", "Fluorescence_Intensity"),
                 "--distance_threshold", str(distance_threshold)
             ]
             
@@ -1640,29 +1866,29 @@ class EasyReporterApp:
         
         # 添加跳过选项
         if existing_data["has_charts"]:
-            st.success("✅ 检测到已有图表数据！")
+            st.success(get_text("existing_charts_detected"))
             col1, col2 = st.columns([1, 1])
             with col1:
-                if st.button("⏭️ 跳过步骤2（使用现有图表）", key="skip_step2_btn"):
+                if st.button(get_text("skip_step2_btn"), key="skip_step2_btn"):
                     st.session_state.skip_step2 = True
                     st.rerun()
             with col2:
-                if st.button("🔄 重新生成图表", key="redo_step2_btn"):
+                if st.button(get_text("redo_step2_btn"), key="redo_step2_btn"):
                     # 清理旧的图表数据
                     import shutil
-                    chart_dir = os.path.join(st.session_state.work_dir, "04.Chart")
+                    chart_dir = os.path.join(st.session_state.work_dir, "Chart")
                     if os.path.exists(chart_dir):
                         try:
                             shutil.rmtree(chart_dir)
-                            self.log_message("已清理旧的图表数据", "info")
+                            self.log_message(get_text("cleared_old_charts"), "info")
                         except Exception as e:
-                            self.log_message(f"清理图表数据失败: {str(e)}", "warning")
+                            self.log_message(get_text("clear_charts_failed").format(str(e)), "warning")
                     st.session_state.skip_step2 = False
                     st.rerun()
         
         # 如果选择跳过，则不显示图表生成界面
         if st.session_state.get('skip_step2', False):
-            st.info("📊 步骤2已跳过，使用现有图表数据进行AI报告生成")
+            st.info(get_text("step2_skipped_info"))
             return
 
         # 添加明显的提示
@@ -1775,7 +2001,7 @@ class EasyReporterApp:
                             if color_index < num_colors:
                                 with col:
                                     color = st.color_picker(
-                                        f"颜色 {color_index + 1}",
+                                        get_text("color_number_label").format(color_index + 1),
                                         value=default_colors[color_index % len(default_colors)],
                                         key=f"bar_box_color_{color_index + 1}"
                                     )
@@ -1854,8 +2080,8 @@ class EasyReporterApp:
             st.subheader(get_text("correlation_section_title"))
             st.caption(get_text("correlation_section_desc"))
 
-            data_dir = os.path.join(st.session_state.work_dir, "06.correlation", "data")
-            out_dir = os.path.join(st.session_state.work_dir, "06.correlation", "output")
+            data_dir = os.path.join(st.session_state.work_dir, "correlation", "data")
+            out_dir = os.path.join(st.session_state.work_dir, "correlation", "output")
             os.makedirs(data_dir, exist_ok=True)
             os.makedirs(out_dir, exist_ok=True)
 
@@ -1931,8 +2157,8 @@ class EasyReporterApp:
             st.subheader(get_text("scatter_section_title"))
             st.caption(get_text("scatter_section_desc"))
 
-            data_dir = os.path.join(st.session_state.work_dir, "06.correlation_scatter", "data")
-            out_dir = os.path.join(st.session_state.work_dir, "06.correlation_scatter", "output")
+            data_dir = os.path.join(st.session_state.work_dir, "correlation_scatter", "data")
+            out_dir = os.path.join(st.session_state.work_dir, "correlation_scatter", "output")
             os.makedirs(data_dir, exist_ok=True)
             os.makedirs(out_dir, exist_ok=True)
 
@@ -1947,19 +2173,19 @@ class EasyReporterApp:
             
             # 参数设置
             with st.expander(get_text("scatter_column_settings"), expanded=True):
-                st.caption("⚙️ 图片大小与散点颜色设置")
+                st.caption(get_text("corr_scatter_size_color_title"))
                 
                 col1, col2 = st.columns(2)
                 with col1:
-                    st.markdown("**图片尺寸 (英寸)**")
-                    fig_width = st.number_input("宽度", min_value=6.0, max_value=24.0, value=12.0, step=0.5, key="scatter_fig_width")
-                    fig_height = st.number_input("高度", min_value=6.0, max_value=24.0, value=12.0, step=0.5, key="scatter_fig_height")
+                    st.markdown(get_text("image_size_inches"))
+                    fig_width = st.number_input(get_text("width_label"), min_value=6.0, max_value=24.0, value=12.0, step=0.5, key="scatter_fig_width")
+                    fig_height = st.number_input(get_text("height_label"), min_value=6.0, max_value=24.0, value=12.0, step=0.5, key="scatter_fig_height")
                 
                 with col2:
-                    st.markdown("**散点颜色 (HEX格式)**")
-                    color1 = st.color_picker("第一组 (FACS vs AI)", value="#37AB7B", key="scatter_color1")
-                    color2 = st.color_picker("第二组 (FACS vs Amplicon)", value="#F94141", key="scatter_color2")
-                    color3 = st.color_picker("第三组 (AI vs Amplicon)", value="#589FF3", key="scatter_color3")
+                    st.markdown(get_text("scatter_colors_hex"))
+                    color1 = st.color_picker(get_text("group1_color"), value="#37AB7B", key="scatter_color1")
+                    color2 = st.color_picker(get_text("group2_color"), value="#F94141", key="scatter_color2")
+                    color3 = st.color_picker(get_text("group3_color"), value="#589FF3", key="scatter_color3")
                 
                 # 隐藏的列名参数(使用默认值)
                 green_x = "FACS(%)"
@@ -2032,7 +2258,7 @@ class EasyReporterApp:
             except Exception:
                 pass
         except Exception as e:
-            st.warning(f"散点图模块错误: {e}")
+            st.warning(get_text("scatter_module_error").format(e))
     
     def run_scatter_generation(self, data_dir, out_dir, green_x, green_y, red_x, red_y, te_x, te_y, 
                                fig_width=12.0, fig_height=12.0, color1="#37AB7B", color2="#F94141", color3="#589FF3"):
@@ -2061,7 +2287,7 @@ class EasyReporterApp:
                 try:
                     script_path = os.path.join(
                         os.path.dirname(os.path.abspath(__file__)),
-                        "02.Code",
+                        "Code",
                         "Correlation_scatter.py"
                     )
                     cmd = [
@@ -2127,7 +2353,7 @@ class EasyReporterApp:
                 try:
                     script_path = os.path.join(
                         os.path.dirname(os.path.abspath(__file__)),
-                        "02.Code",
+                        "Code",
                         "Correlation_heatmap.py"
                     )
                     cmd = [
@@ -2271,13 +2497,13 @@ class EasyReporterApp:
             # 确定输入和输出目录
             if chart_key == "Cell_Distribution_Scatter":
                 # 细胞分布散点图使用Cellpose输出的CSV文件
-                input_dir = os.path.join(st.session_state.work_dir, "03.Cellpose_output", "Cell_Counts")
+                input_dir = os.path.join(st.session_state.work_dir, "Cellpose_output", "Cell_Counts")
             elif chart_key in ["Grouped_Bar", "Grouped_Box"]:
                 # 柱状图和箱线图使用细胞分布散点图的输出
-                input_dir = os.path.join(st.session_state.work_dir, "04.Chart", "Cell_Distribution_Scatter_Plot")
+                input_dir = os.path.join(st.session_state.work_dir, "Chart", "Cell_Distribution_Scatter_Plot")
             else:  # Cell_Clustering_Scatter, Simulated_Flow_Cytometry
                 # 聚类图和流式图使用荧光强度分析的输出
-                input_dir = os.path.join(st.session_state.work_dir, "03.Cellpose_output", "Fluorescence_Intensity")
+                input_dir = os.path.join(st.session_state.work_dir, "Cellpose_output", "Fluorescence_Intensity")
 
             # 新增：必要输入检查（Grouped_Bar/Grouped_Box 依赖 all_summary.csv）
             if chart_key in ["Grouped_Bar", "Grouped_Box"]:
@@ -2289,14 +2515,14 @@ class EasyReporterApp:
                     )
                     return False
 
-            output_dir = os.path.join(st.session_state.work_dir, "04.Chart", f"{chart_key}_Plot")
+            output_dir = os.path.join(st.session_state.work_dir, "Chart", f"{chart_key}_Plot")
 
             # 确保输出目录存在
             os.makedirs(output_dir, exist_ok=True)
 
             # 构建命令
             cmd = [
-                sys.executable, f"02.Code/{chart_info['script']}",
+                sys.executable, f"Code/{chart_info['script']}",
                 "--input", input_dir,
                 "--output", output_dir,
                 "--figsize", str(figsize_width), str(figsize_height),
@@ -2362,26 +2588,26 @@ class EasyReporterApp:
         """渲染步骤3: 结果下载"""
         st.markdown(f'<h2 class="step-header">{get_text("step3_header")}</h2>', unsafe_allow_html=True)
 
-        chart_dir = os.path.join(st.session_state.work_dir, "04.Chart")
+        chart_dir = os.path.join(st.session_state.work_dir, "Chart")
 
         if not os.path.exists(chart_dir) or not os.listdir(chart_dir):
             st.warning(get_text("no_charts_generated"))
             return
         
         # 添加跳过选项
-        st.success("✅ 检测到图表数据！")
+        st.success(get_text("charts_detected"))
         col1, col2 = st.columns([1, 1])
         with col1:
-            if st.button("⏭️ 跳过步骤3（直接进行AI解读）", key="skip_step3_btn"):
+            if st.button(get_text("skip_step3_btn"), key="skip_step3_btn"):
                 st.session_state.skip_step3 = True
-                st.info("已跳过步骤3预览，可直接进行步骤4 AI解读")
+                st.info(get_text("step3_skipped_preview"))
         with col2:
-            if st.button("👁️ 查看图表预览", key="show_step3_btn"):
+            if st.button(get_text("view_chart_preview_btn"), key="show_step3_btn"):
                 st.session_state.skip_step3 = False
         
         # 如果选择跳过，则不显示预览
         if st.session_state.get('skip_step3', False):
-            st.info("📊 步骤3已跳过，可直接进行步骤4的AI报告生成")
+            st.info(get_text("step3_skipped_info"))
             return
 
         st.subheader(get_text("preview_charts_title"))
@@ -2475,7 +2701,7 @@ class EasyReporterApp:
             st.markdown("\n".join(cards_html), unsafe_allow_html=True)
 
         # 新增：相关性热图输出预览
-        corr_out_dir = os.path.join(st.session_state.work_dir, "06.correlation", "output")
+        corr_out_dir = os.path.join(st.session_state.work_dir, "correlation", "output")
         try:
             corr_files = []
             if os.path.isdir(corr_out_dir):
@@ -2516,7 +2742,7 @@ class EasyReporterApp:
             else:
                 st.info(get_text("correlation_no_files"))
         except Exception as e:
-            st.warning(f"Correlation preview error: {e}")
+            st.warning(get_text("correlation_preview_error").format(e))
 
         st.subheader(get_text("download_results_title"))
 
@@ -2560,7 +2786,7 @@ class EasyReporterApp:
                 all_files.append((rel_path, file_path))
 
         # 新增：添加相关性热图输出文件
-        corr_out_dir = os.path.join(st.session_state.work_dir, "06.correlation", "output")
+        corr_out_dir = os.path.join(st.session_state.work_dir, "correlation", "output")
         if os.path.exists(corr_out_dir):
             for root, dirs, files in os.walk(corr_out_dir):
                 for file in files:
@@ -2570,7 +2796,7 @@ class EasyReporterApp:
 
         # 添加数据文件
         data_dirs = [
-            "03.Cellpose_output",
+            "Cellpose_output",
         ]
 
         for data_dir in data_dirs:
@@ -2623,17 +2849,17 @@ class EasyReporterApp:
             ai_progress.progress(0.1)
 
             # 1) 汇总数据
-            data_summary = summarize_data_for_ai(st.session_state.work_dir)
+            data_summary = summarize_data_for_ai(st.session_state.work_dir, lang=st.session_state.get('language', 'zh'))
             if not data_summary:
                 ai_status.text(get_text("no_data_for_ai"))
                 st.warning(get_text("no_data_for_ai"))
                 return
             
-            ai_status.text("数据汇总完成，开始分层AI解读...")
+            ai_status.text(get_text("ai_summary_complete_layered"))
             ai_progress.progress(0.2)
 
             # 2) 使用新的分层AI解读逻辑
-            ai_status.text("正在生成分层AI解读报告...")
+            ai_status.text(get_text("ai_generating_layered_report"))
             
             # 设置速率限制
             base_url_val = st.session_state.get("ai_base_url", "")
@@ -2641,9 +2867,9 @@ class EasyReporterApp:
             min_interval_sec = st.session_state.get("ai_rate_limit_sec", 21 if is_openai else 0)
             
             if is_openai and min_interval_sec >= 10:
-                st.info(f"为避免 OpenAI 429 速率限制，我们将在每次AI调用之间自动等待约 {min_interval_sec} 秒。")
+                st.info(get_text("ai_rate_limit_info").format(min_interval_sec))
 
-            with st.spinner("正在生成分层AI解读报告..."):
+            with st.spinner(get_text("ai_generating_layered_report")):
                 try:
                     # 调用按组别分析的AI解读函数
                     chart_previews_by_group = collect_chart_previews_by_group(st.session_state.work_dir, max_per_type=2)
@@ -2748,9 +2974,9 @@ class EasyReporterApp:
                         st.session_state.ai_report_failed = False
                         st.session_state.show_local_option = False
                         ai_progress.progress(1.0)
-                        ai_status.text("已复用同一批数据的报告。" if lang == 'zh' else "Reused the report for the same input data.")
-                        self.log_message("Reused cached AI report", "success")
-                        st.info("数据和分析设置未变，已复用上次报告，内容保持一致。" if lang == 'zh' else "The data and analysis settings are unchanged, so the previous report was reused.")
+                        ai_status.text(get_text("ai_reused_report_status", lang))
+                        self.log_message(get_text("ai_reused_report_status", lang), "success")
+                        st.info(get_text("ai_reused_report_info", lang))
                         return
 
                     response_stream = generate_ai_report_by_group(
@@ -2787,29 +3013,29 @@ class EasyReporterApp:
                             report_container.markdown(format_target_for_display(full_report))
                             st.session_state.ai_report_failed = False
                             st.session_state.show_local_option = False
-                            ai_status.text("分层AI解读完成！")
+                            ai_status.text(get_text("ai_layered_complete"))
                             ai_progress.progress(1.0)
-                            self.log_message("Structured AI interpretation completed successfully", "success")
+                            self.log_message(get_text("ai_interpretation_success_log"), "success")
                         else:
                             st.session_state.ai_report_failed = True
                             st.session_state.show_local_option = True
-                            st.error("未生成有效的AI解读内容")
-                            ai_status.text("AI解读失败")
+                            st.error(get_text("ai_no_valid_content"))
+                            ai_status.text(get_text("ai_interpretation_failed"))
                     else:
                         st.session_state.ai_report_failed = True
                         st.session_state.show_local_option = True
-                        ai_status.text("AI解读失败")
+                        ai_status.text(get_text("ai_interpretation_failed"))
                         
                 except Exception as e:
-                    self.log_message(f"Error during structured AI report generation: {str(e)}", "error")
+                    self.log_message(get_text("ai_layered_error").format(str(e)), "error")
                     st.session_state.ai_report_failed = True
                     st.session_state.show_local_option = True
-                    st.error(f"分层AI解读生成错误: {e}")
-                    ai_status.text("AI解读生成错误")
+                    st.error(get_text("ai_layered_error").format(e))
+                    ai_status.text(get_text("ai_generation_error_status"))
                     
         except Exception as e:
-            self.log_message(f"AI interpretation process error: {str(e)}", "error")
-            st.error(f"AI解读过程错误: {str(e)}")
+            self.log_message(get_text("ai_process_error").format(str(e)), "error")
+            st.error(get_text("ai_process_error").format(str(e)))
 
 
 
@@ -2899,9 +3125,9 @@ class EasyReporterApp:
             
             # 调试：显示收集到的图表信息
             if all_charts:
-                st.info(f"收集到 {len(all_charts)} 个图表类别，共 {sum(len(v) for v in all_charts.values())} 张图片")
+                st.info(get_text("charts_collected_info").format(len(all_charts), sum(len(v) for v in all_charts.values())))
             else:
-                st.warning("未收集到任何图表，请先生成图表")
+                st.warning(get_text("no_charts_warning"))
             
             protein_target_groups = group_charts_by_protein_and_target(all_charts)
             
@@ -2909,16 +3135,16 @@ class EasyReporterApp:
             if protein_target_groups:
                 total_proteins = len(protein_target_groups)
                 total_targets = sum(len(targets) for targets in protein_target_groups.values())
-                st.success(f"找到 {total_proteins} 个蛋白，共 {total_targets} 个靶点")
+                st.success(get_text("proteins_targets_found").format(total_proteins, total_targets))
                 for prot, targets in protein_target_groups.items():
-                    st.write(f"  • {prot.upper()}: {len(targets)} 个靶点 ({', '.join(targets.keys())})")
+                    st.write(get_text("protein_targets_detail").format(prot.upper(), len(targets), ', '.join(targets.keys())))
             else:
-                st.warning("未找到蛋白和靶点分组数据")
+                st.warning(get_text("no_protein_groups_warning"))
             
             # 为每个蛋白的每个靶点创建独立的选择器
             if protein_target_groups:
-                st.markdown("#### 为每个靶点选择展示的数据")
-                st.caption("💡 提示：每个靶点选择一个数据ID，报告中将为每种图表类型展示所有靶点的图片（一行3张）")
+                st.markdown(get_text("select_data_per_target_title"))
+                st.caption(get_text("select_data_hint"))
                 
                 # 初始化选择状态：{protein: {target: data_id}}
                 # 清理旧的数据结构（如果存在的话）
@@ -2941,7 +3167,7 @@ class EasyReporterApp:
                     protein_display = protein.capitalize()  # Cas9, Cas12
                     
                     # 为每个蛋白创建一个expander
-                    with st.expander(f"🧬 {protein_display} 蛋白 ({len(targets_dict)} 个靶点)", expanded=True):
+                    with st.expander(get_text("protein_expander_title").format(protein_display, len(targets_dict)), expanded=True):
                         if protein not in st.session_state.selected_data_per_target:
                             st.session_state.selected_data_per_target[protein] = {}
                         
@@ -2963,20 +3189,20 @@ class EasyReporterApp:
                                             default_idx = 0
                                     
                                     selected = st.selectbox(
-                                        f"选择 {protein_display}-{target.upper()} 的数据",
+                                        get_text("select_data_for").format(protein_display, target.upper()),
                                         options=data_ids,
                                         index=default_idx,
                                         key=f'select_{protein}_{target}',
                                         label_visibility="collapsed"
                                     )
                                     st.session_state.selected_data_per_target[protein][target] = selected
-                                    st.caption(f"已选择: {selected} (将在报告中展示)")
+                                    st.caption(get_text("selected_caption").format(selected))
                 
                 # 显示当前选择摘要
                 if st.session_state.selected_data_per_target:
                     total_selected = sum(len(targets) if isinstance(targets, dict) else 0 
                                        for targets in st.session_state.selected_data_per_target.values())
-                    st.success(f"✅ 已为 {total_selected} 个靶点选择数据")
+                    st.success(get_text("targets_selected_success").format(total_selected))
                     
                     # 显示详细选择信息
                     summary_lines = []
@@ -2985,13 +3211,13 @@ class EasyReporterApp:
                             target_info = [f"{t.upper()}={d}" for t, d in sorted(targets.items())]
                             summary_lines.append(f"{prot.capitalize()}: {', '.join(target_info)}")
                     if summary_lines:
-                        st.caption("当前选择详情: " + " | ".join(summary_lines))
+                        st.caption(get_text("current_selection_caption") + " | ".join(summary_lines))
             else:
                 # 没有找到分组数据
                 if 'selected_data_per_target' in st.session_state:
                     del st.session_state['selected_data_per_target']
         except Exception as e:
-            st.warning(f"无法加载数据分组: {e}")
+            st.warning(get_text("load_group_failed").format(e))
             import traceback
             st.code(traceback.format_exc())
             protein_target_groups = {}
@@ -3104,7 +3330,7 @@ class EasyReporterApp:
     def create_charts_zip(self):
         """创建图表文件的ZIP压缩包"""
         try:
-            chart_dir = os.path.join(st.session_state.work_dir, "04.Chart")
+            chart_dir = os.path.join(st.session_state.work_dir, "Chart")
 
             if not os.path.exists(chart_dir):
                 return None
@@ -3136,7 +3362,7 @@ class EasyReporterApp:
 
             with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
                 # 添加Cellpose输出
-                cellpose_dir = os.path.join(st.session_state.work_dir, "03.Cellpose_output")
+                cellpose_dir = os.path.join(st.session_state.work_dir, "Cellpose_output")
                 if os.path.exists(cellpose_dir):
                     for root, dirs, files in os.walk(cellpose_dir):
                         for file in files:
@@ -3226,7 +3452,7 @@ class EasyReporterApp:
         """根据 AI 的全部有效输入生成报告缓存键。"""
         payload = {
             # 提示词或规范化逻辑变更时递增，避免误用旧报告。
-            "cache_version": "report-v2-20260812",
+            "cache_version": "report-v4-20260815",
             "data_summary": data_summary,
             "charts": self._report_chart_manifest(chart_previews_by_group, st.session_state.work_dir),
             "language": st.session_state.get('language', 'zh'),
@@ -3525,9 +3751,13 @@ class EasyReporterApp:
                     ('聚类模式', 'Cell_Clustering_Scatter'),
                     ('Cell Clustering Scatter', 'Cell_Clustering_Scatter'),
                     ('Clustering Features', 'Cell_Clustering_Scatter'),
+                    ('模拟流式细胞术图', 'Simulated_Flow_Cytometry'),
                     ('模拟流式细胞术', 'Simulated_Flow_Cytometry'),
+                    ('模拟流式', 'Simulated_Flow_Cytometry'),
                     ('流式细胞术', 'Simulated_Flow_Cytometry'),
+                    ('流式细胞', 'Simulated_Flow_Cytometry'),
                     ('荧光表型', 'Simulated_Flow_Cytometry'),
+                    ('对数强度', 'Simulated_Flow_Cytometry'),
                     ('Simulated Flow Cytometry', 'Simulated_Flow_Cytometry'),
                     ('Fluorescence Phenotype', 'Simulated_Flow_Cytometry'),
                 ]
@@ -4156,9 +4386,12 @@ class EasyReporterApp:
                         '#### 聚类特征', '#### Clustering Features'
                     ],
                     'Simulated_Flow_Cytometry': [
-                        '模拟流式细胞图', 'Simulated Flow Cytometry',
-                        '流式细胞术', '荧光表型与编辑效率', 'Fluorescence Phenotype & Editing Efficiency',
-                        'simulated flow cytometry', 'fluorescence phenotype & editing efficiency',
+                        '模拟流式细胞术图', '模拟流式细胞术', '模拟流式细胞图', '模拟流式',
+                        'Simulated Flow Cytometry', 'simulated flow cytometry', 'simulated flow',
+                        '流式细胞术', '流式细胞', '荧光表型与编辑效率',
+                        'Fluorescence Phenotype & Editing Efficiency',
+                        'fluorescence phenotype & editing efficiency', 'fluorescence phenotype',
+                        '对数强度', 'Log Intensity', 'log intensity',
                         # 四级标题特有关键词（更精确）
                         '#### 荧光表型与编辑效率', '#### Fluorescence Phenotype & Editing Efficiency',
                         '#### 荧光表型', '#### Fluorescence Phenotype'
@@ -4344,6 +4577,46 @@ class EasyReporterApp:
                         in_comparison_section = True
                         current_protein = None
                     
+                    # 检测关键发现章节：先做全局兜底，确保所有未插入的组别图都不缺失
+                    elif re.search(r'##\s*4[.\s]|关键发现|key findings', line, re.IGNORECASE):
+                        for prot, types_map in chart_map.items():
+                            for chart_type in ['Cell_Distribution_Scatter', 'Cell_Clustering_Scatter', 'Simulated_Flow_Cytometry']:
+                                chart_key = f"{prot}_{chart_type}"
+                                if chart_key not in inserted_charts and chart_type in types_map:
+                                    # 插入该类型的所有图表（多个 sg 组），使用3列网格布局
+                                    chart_list = types_map[chart_type]
+                                    processed_html.append("<br><div class='image-grid-row'>")
+                                    
+                                    for chart_info in chart_list:
+                                        chart_path = chart_info.get('path', '')
+                                        if chart_path and os.path.exists(chart_path):
+                                            try:
+                                                from PIL import Image as PILImage
+                                                img = PILImage.open(chart_path)
+                                                buffered = io.BytesIO()
+                                                img.save(buffered, format="PNG")
+                                                img_base64 = base64.b64encode(buffered.getvalue()).decode()
+                                                
+                                                data_title = extract_data_title(chart_path)
+                                                title_html = f"<h5>{data_title}</h5>" if data_title else ""
+                                                
+                                                processed_html.append(
+                                                    f"<div class='image-col'>"
+                                                    f"{title_html}"
+                                                    f"<img src='data:image/png;base64,{img_base64}' "
+                                                    f"alt='{prot} {chart_type}'>"
+                                                    f"</div>"
+                                                )
+                                            except Exception as e:
+                                                pass
+                                    
+                                    processed_html.append("</div>")
+                                    inserted_charts.add(chart_key)
+                                    print(f"[DEBUG] Fallback inserted {chart_type} for {prot} (global fallback)")
+                        
+                        in_comparison_section = False
+                        current_protein = None
+                    
                     # 添加当前 Markdown 块。表格需要一次传入全部行，
                     # 否则单行表格会被判定为无效并丢失内容。
                     is_table_line = line.strip().startswith('|') and line.strip().endswith('|')
@@ -4499,6 +4772,41 @@ class EasyReporterApp:
                                         inserted_charts.add(chart_key)
                     
                     i += 1
+                
+                # 最终全局兜底：报告解析完后，把所有蛋白所有未插入的组别图补到正文末尾
+                for prot, types_map in chart_map.items():
+                    for chart_type in ['Cell_Distribution_Scatter', 'Cell_Clustering_Scatter', 'Simulated_Flow_Cytometry']:
+                        chart_key = f"{prot}_{chart_type}"
+                        if chart_key not in inserted_charts and chart_type in types_map:
+                            chart_list = types_map[chart_type]
+                            processed_html.append("<br><div class='image-grid-row'>")
+                            
+                            for chart_info in chart_list:
+                                chart_path = chart_info.get('path', '')
+                                if chart_path and os.path.exists(chart_path):
+                                    try:
+                                        from PIL import Image as PILImage
+                                        img = PILImage.open(chart_path)
+                                        buffered = io.BytesIO()
+                                        img.save(buffered, format="PNG")
+                                        img_base64 = base64.b64encode(buffered.getvalue()).decode()
+                                        
+                                        data_title = extract_data_title(chart_path)
+                                        title_html = f"<h5>{data_title}</h5>" if data_title else ""
+                                        
+                                        processed_html.append(
+                                            f"<div class='image-col'>"
+                                            f"{title_html}"
+                                            f"<img src='data:image/png;base64,{img_base64}' "
+                                            f"alt='{prot} {chart_type}'>"
+                                            f"</div>"
+                                        )
+                                    except Exception as e:
+                                        pass
+                            
+                            processed_html.append("</div>")
+                            inserted_charts.add(chart_key)
+                            print(f"[DEBUG] End-of-report fallback inserted {chart_type} for {prot}")
                 
                 html_content += '\n'.join(processed_html) + '\n'
             elif ai_report:
@@ -4990,10 +5298,10 @@ class EasyReporterApp:
                 self.log_pdf_creation("浏览器可执行文件未找到")
             except subprocess.TimeoutExpired:
                 self.log_pdf_creation("HTML→PDF 转换超时 (120秒)")
-                st.warning("PDF 转换超时，正在使用备用方案...")
+                st.warning(get_text("pdf_timeout_warning"))
             except Exception as e:
                 self.log_pdf_creation(f"浏览器 PDF 转换失败: {str(e)}")
-                st.warning(f"浏览器 PDF 转换失败: {str(e)}，正在使用备用方案...")
+                st.warning(get_text("browser_pdf_failed").format(str(e)))
             
             # ===== 方案2: 使用 pdf_renderer.py 独立脚本（备用） =====
             try:
@@ -5010,7 +5318,7 @@ class EasyReporterApp:
                 
                 # 调用独立脚本
                 script_dir = os.path.dirname(os.path.abspath(__file__))
-                renderer_script = os.path.join(script_dir, '02.Code', 'pdf_renderer.py')
+                renderer_script = os.path.join(script_dir, 'Code', 'pdf_renderer.py')
                 
                 if os.path.exists(renderer_script):
                     result = subprocess.run(
@@ -5038,18 +5346,18 @@ class EasyReporterApp:
             
             # ===== 方案3: 简易 ReportLab PDF（最终备用） =====
             self.log_pdf_creation("所有浏览器方案失败，使用简易 ReportLab PDF 备用方案...")
-            st.info("📄 正在使用简易 PDF 备用方案生成报告...")
+            st.info(get_text("simple_pdf_fallback_info"))
             return self._create_simple_pdf_fallback(pdf_path)
             
         except ImportError as import_error:
             missing_module = str(import_error).split("'")[1] if "'" in str(import_error) else "unknown"
-            st.error(f"缺少PDF生成依赖: {missing_module}")
+            st.error(get_text("pdf_missing_deps_error").format(missing_module))
             st.error(get_text("pdf_missing_deps"))
             return None
         except Exception as e:
             st.error(get_text("pdf_generation_failed_generic").format(str(e)))
             import traceback
-            st.error(f"详细错误信息: {traceback.format_exc()}")
+            st.error(get_text("pdf_detailed_error").format(traceback.format_exc()))
             return None
 
     def _create_simple_pdf_fallback(self, pdf_path):
@@ -5411,7 +5719,7 @@ class EasyReporterApp:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI分析报告 - 按实验组别</title>
+    <title>{get_text('html_report_title')}{get_text('html_report_by_group_suffix')}</title>
     <style>
         /* 全局排版优化 - 现代化设计 */
         body {{
@@ -5833,7 +6141,7 @@ class EasyReporterApp:
     <!-- 封面页 -->
     <div class="cover-page">
         <div class="cover-content">
-            <h1 class="cover-title">{get_text("html_report_title")} - 按实验组别</h1>
+            <h1 class="cover-title">{get_text('html_report_title')}{get_text('html_report_by_group_suffix')}</h1>
             <p class="cover-subtitle">{get_text("html_report_subtitle")}</p>
             
             <div class="cover-icons">
@@ -5864,7 +6172,7 @@ class EasyReporterApp:
 
     <!-- 主要内容 -->
     <div class="main-content">
-        <h1><span class="title-icon">{ai_robot_icon}</span> {get_text("html_report_title")} - 按实验组别</h1>
+        <h1><span class="title-icon">{ai_robot_icon}</span> {get_text('html_report_title')}{get_text('html_report_by_group_suffix')}</h1>
 """
             
             # 解析AI报告，提取每个蛋白、每种图表类型的文字解读
@@ -5887,30 +6195,30 @@ class EasyReporterApp:
                     return match.group(1).upper() if match else None
 
                 chart_keywords = [
-                    ('细胞分布散点图', 'Cell Distribution Scatter'),
-                    ('细胞分布特征', 'Cell Distribution Scatter'),
-                    ('Cell Distribution Scatter', 'Cell Distribution Scatter'),
-                    ('Cell Distribution Features', 'Cell Distribution Scatter'),
-                    ('Cell Distribution', 'Cell Distribution Scatter'),
-                    ('细胞聚类散点图', 'Cell Clustering Scatter'),
-                    ('细胞集群散点图', 'Cell Clustering Scatter'),
-                    ('聚类特征', 'Cell Clustering Scatter'),
-                    ('聚类模式', 'Cell Clustering Scatter'),
-                    ('Cell Clustering Scatter', 'Cell Clustering Scatter'),
-                    ('Clustering Features', 'Cell Clustering Scatter'),
-                    ('Clustering Patterns', 'Cell Clustering Scatter'),
-                    ('Cell Clustering', 'Cell Clustering Scatter'),
-                    ('模拟流式细胞术', 'Simulated Flow Cytometry'),
-                    ('流式细胞术', 'Simulated Flow Cytometry'),
-                    ('流式细胞', 'Simulated Flow Cytometry'),
-                    ('荧光表型', 'Simulated Flow Cytometry'),
-                    ('荧光强度', 'Simulated Flow Cytometry'),
-                    ('流式特征', 'Simulated Flow Cytometry'),
-                    ('Simulated Flow Cytometry', 'Simulated Flow Cytometry'),
-                    ('Flow Cytometry Features', 'Simulated Flow Cytometry'),
-                    ('Flow Cytometry Analysis', 'Simulated Flow Cytometry'),
-                    ('Fluorescence Phenotype', 'Simulated Flow Cytometry'),
-                    ('Flow Cytometry', 'Simulated Flow Cytometry'),
+                    ('细胞分布散点图', 'Cell_Distribution_Scatter'),
+                    ('细胞分布特征', 'Cell_Distribution_Scatter'),
+                    ('Cell Distribution Scatter', 'Cell_Distribution_Scatter'),
+                    ('Cell Distribution Features', 'Cell_Distribution_Scatter'),
+                    ('Cell Distribution', 'Cell_Distribution_Scatter'),
+                    ('细胞聚类散点图', 'Cell_Clustering_Scatter'),
+                    ('细胞集群散点图', 'Cell_Clustering_Scatter'),
+                    ('聚类特征', 'Cell_Clustering_Scatter'),
+                    ('聚类模式', 'Cell_Clustering_Scatter'),
+                    ('Cell Clustering Scatter', 'Cell_Clustering_Scatter'),
+                    ('Clustering Features', 'Cell_Clustering_Scatter'),
+                    ('Clustering Patterns', 'Cell_Clustering_Scatter'),
+                    ('Cell Clustering', 'Cell_Clustering_Scatter'),
+                    ('模拟流式细胞术', 'Simulated_Flow_Cytometry'),
+                    ('流式细胞术', 'Simulated_Flow_Cytometry'),
+                    ('流式细胞', 'Simulated_Flow_Cytometry'),
+                    ('荧光表型', 'Simulated_Flow_Cytometry'),
+                    ('荧光强度', 'Simulated_Flow_Cytometry'),
+                    ('流式特征', 'Simulated_Flow_Cytometry'),
+                    ('Simulated Flow Cytometry', 'Simulated_Flow_Cytometry'),
+                    ('Flow Cytometry Features', 'Simulated_Flow_Cytometry'),
+                    ('Flow Cytometry Analysis', 'Simulated_Flow_Cytometry'),
+                    ('Fluorescence Phenotype', 'Simulated_Flow_Cytometry'),
+                    ('Flow Cytometry', 'Simulated_Flow_Cytometry'),
                 ]
 
                 def extract_after_keyword(full_line: str, keyword: str) -> str:
@@ -6041,13 +6349,20 @@ class EasyReporterApp:
             print(f"[DEBUG] key_findings_text: {len(key_findings_text)} 字符")
             print(f"[DEBUG] ========================================\n")
 
-            # 按组别展示分析结果
-            chart_type_order = ['Cell Distribution Scatter', 'Cell Clustering Scatter', 'Simulated Flow Cytometry']
-            chart_type_names = {
-                'Cell Distribution Scatter': '细胞分布散点图',
-                'Cell Clustering Scatter': '细胞聚类散点图', 
-                'Simulated Flow Cytometry': '模拟流式细胞术'
-            }
+            # 按组别展示分析结果（key 与 collect_chart_previews_by_group 返回的下划线格式保持一致）
+            chart_type_order = ['Cell_Distribution_Scatter', 'Cell_Clustering_Scatter', 'Simulated_Flow_Cytometry']
+            if language == 'en':
+                chart_type_names = {
+                    'Cell_Distribution_Scatter': 'Cell Distribution Scatter',
+                    'Cell_Clustering_Scatter': 'Cell Clustering Scatter',
+                    'Simulated_Flow_Cytometry': 'Simulated Flow Cytometry'
+                }
+            else:
+                chart_type_names = {
+                    'Cell_Distribution_Scatter': '细胞分布散点图',
+                    'Cell_Clustering_Scatter': '细胞聚类散点图',
+                    'Simulated_Flow_Cytometry': '模拟流式细胞术'
+                }
             
             for group_name, group_data in chart_previews_by_group.items():
                 # 跳过summary_charts,稍后单独处理
@@ -6055,7 +6370,7 @@ class EasyReporterApp:
                     continue
                     
                 html_content += f"        <div class='group-container'>\n"
-                html_content += f"            <h2><span class='title-icon'>{group_icon}</span>{group_name.upper()} 组分析</h2>\n"
+                html_content += f"            <h2><span class='title-icon'>{group_icon}</span>{get_text('group_analysis_heading').format(group_name.upper())}</h2>\n"
                 
                 # group_data结构是 {chart_type: [{path, ext, filename}, ...]}
                 # 不再有'charts'这一层
@@ -6073,7 +6388,7 @@ class EasyReporterApp:
                 # 按指定顺序展示每种图表类型
                 for chart_type in chart_type_order:
                     if chart_type in charts and charts[chart_type]:
-                        html_content += f"            <h3><span class='title-icon'>{chart_icon}</span>{chart_type_names.get(chart_type, chart_type)}分析</h3>\n"
+                        html_content += f"            <h3><span class='title-icon'>{chart_icon}</span>{get_text('chart_analysis_heading').format(chart_type_names.get(chart_type, chart_type))}</h3>\n"
                         
                         # 展示该类型的所有图表
                         for chart_info in charts[chart_type]:
@@ -6104,7 +6419,7 @@ class EasyReporterApp:
                             ai_text = protein_sections[protein_type].get(chart_type, '')
                             if ai_text:
                                 html_content += f"            <div class='ai-insight'>\n"
-                                html_content += f"                <h4 class='ai-insight-title'>🤖 AI 分析</h4>\n"
+                                html_content += f"                <h4 class='ai-insight-title'>{get_text('ai_insight_title')}</h4>\n"
                                 html_content += f"                <div class='text-content'>{self.clean_text_for_html(ai_text)}</div>\n"
                                 html_content += f"            </div>\n"
                 
@@ -6112,16 +6427,16 @@ class EasyReporterApp:
             
             # 添加综合对比分析部分
             html_content += f"        <div class='group-container'>\n"
-            html_content += f"            <h2><span class='title-icon'>{analysis_icon}</span>综合对比分析</h2>\n"
+            html_content += f"            <h2><span class='title-icon'>{analysis_icon}</span>{get_text('comparative_analysis_section_title')}</h2>\n"
             
             # 收集所有综合分析图表（柱状图、箱线图、相关性图等）
             comprehensive_charts = []
             
-            # 从summary_charts中收集柱状图和箱线图
+            # 从summary_charts中收集柱状图、箱线图与相关性图
             if 'summary_charts' in chart_previews_by_group:
                 summary_charts = chart_previews_by_group['summary_charts']
                 for chart_type, chart_list in summary_charts.items():
-                    if chart_type in ['Grouped_Bar', 'Grouped_Box']:
+                    if chart_type in ['Grouped_Bar', 'Grouped_Box', 'Correlation_Scatter', 'Correlation_Heatmap']:
                         for chart_info in chart_list:
                             comprehensive_charts.append(chart_info)
             
@@ -6134,13 +6449,13 @@ class EasyReporterApp:
                 if isinstance(group_data, dict):
                     charts = group_data.get('charts', group_data)  # 兼容不同的数据结构
                     for chart_type, chart_list in charts.items():
-                        if chart_type in ['Correlation', '综合分析']:
+                        if chart_type in ['Correlation', 'Correlation_Scatter', 'Correlation_Heatmap', '综合分析']:
                             for chart_info in chart_list:
                                 if chart_info not in comprehensive_charts:
                                     comprehensive_charts.append(chart_info)
             
             if comprehensive_charts:
-                html_content += f"            <h3><span class='title-icon'>{chart_icon}</span>统计分析图表</h3>\n"
+                html_content += f"            <h3><span class='title-icon'>{chart_icon}</span>{get_text('statistical_charts_heading')}</h3>\n"
                 for chart_info in comprehensive_charts:
                     chart_path = chart_info.get('path', '')
                     if os.path.exists(chart_path):
@@ -6156,7 +6471,7 @@ class EasyReporterApp:
                                 # 提取友好的图片名称（Cas9-site1格式）
                                 friendly_name = self.extract_friendly_chart_name(os.path.basename(chart_path))
                                 
-                                html_content += f"                <img src='data:{mime_type};base64,{img_base64}' class='chart-image' alt='综合分析图表'>\n"
+                                html_content += f"                <img src='data:{mime_type};base64,{img_base64}' class='chart-image' alt='{get_text('statistical_charts_heading')}'>\n"
                                 html_content += f"                <p class='chart-caption'><strong>{get_text('file_name_label')}</strong> {friendly_name}</p>\n"
                                 
                                 # 添加AI解读
@@ -6174,13 +6489,13 @@ class EasyReporterApp:
             # 添加综合分析与关键发现的AI文字
             if comprehensive_analysis_text:
                 html_content += f"            <div class='ai-insight'>\n"
-                html_content += f"                <h4 class='ai-insight-title'>🤖 AI 综合分析</h4>\n"
+                html_content += f"                <h4 class='ai-insight-title'>{get_text('ai_comprehensive_analysis_heading')}</h4>\n"
                 html_content += f"                <div class='text-content'>{self.clean_text_for_html(comprehensive_analysis_text)}</div>\n"
                 html_content += f"            </div>\n"
 
             if key_findings_text:
                 html_content += f"            <div class='ai-insight'>\n"
-                html_content += f"                <h4 class='ai-insight-title'>🔍 关键发现与建议</h4>\n"
+                html_content += f"                <h4 class='ai-insight-title'>{get_text('key_findings_recommendations_heading')}</h4>\n"
                 html_content += f"                <div class='text-content'>{self.clean_text_for_html(key_findings_text)}</div>\n"
                 html_content += f"            </div>\n"
             
@@ -6211,19 +6526,19 @@ def main():
     
     # 如果打开的项目有完整的数据，提供快捷通道
     if not st.session_state.step1_completed and (existing_data["has_cellpose_output"] or existing_data["has_charts"]):
-        st.info("🎯 检测到项目中已有数据！您可以直接跳到AI解读步骤。")
+        st.info(get_text("quick_start_ai_info"))
         col1, col2 = st.columns([1, 1])
         with col1:
-            if st.button("⚡ 快速进入AI解读（跳过步骤1）", key="quick_start_ai"):
+            if st.button(get_text("quick_start_ai_btn"), key="quick_start_ai"):
                 st.session_state.step1_completed = True
                 # 注意：不再自动设置 skip_step2 和 skip_step3，让用户在步骤2/3中自行选择
-                st.success("已启用快捷模式，您可以在步骤2选择是否重新生成图表！")
+                st.success(get_text("quick_mode_enabled"))
                 st.rerun()
         with col2:
-            if st.button("🔄 从头开始（重新运行所有步骤）", key="start_from_beginning"):
+            if st.button(get_text("start_over_btn"), key="start_from_beginning"):
                 st.session_state.skip_step2 = False
                 st.session_state.skip_step3 = False
-                st.info("将从步骤1开始")
+                st.info(get_text("start_from_step1"))
     
     # 根据步骤显示不同内容
     if not st.session_state.step1_completed:
@@ -6253,7 +6568,7 @@ def main():
         st.header(get_text("app_info_header"))
         
         # 项目管理部分
-        st.subheader("📁 项目管理")
+        st.subheader(get_text("project_management"))
         
         # 获取所有已存在的项目
         script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -6263,23 +6578,26 @@ def main():
             existing_projects = [d for d in os.listdir(projects_dir) if os.path.isdir(os.path.join(projects_dir, d))]
         
         # 显示当前项目
-        current_project = st.session_state.project_name if st.session_state.project_name else "未选择"
-        st.info(f"📌 当前项目: **{current_project}**")
+        current_project = st.session_state.project_name if st.session_state.project_name else get_text("no_project_selected")
+        st.info(get_text("current_project_label").format(current_project))
         
         # 项目选择器
+        action_labels = [get_text("continue_current"), get_text("open_existing"), get_text("create_new")]
+        if st.session_state.get("project_action") not in action_labels:
+            st.session_state.pop("project_action", None)
         project_action = st.radio(
-            "选择操作",
-            ["继续当前项目", "打开已有项目", "创建新项目"],
+            get_text("project_action"),
+            action_labels,
             key="project_action"
         )
         
-        if project_action == "打开已有项目" and existing_projects:
+        if project_action == get_text("open_existing") and existing_projects:
             selected_project = st.selectbox(
-                "选择项目",
+                get_text("select_project"),
                 existing_projects,
                 key="selected_existing_project"
             )
-            if st.button("📂 打开项目"):
+            if st.button(get_text("open_project_btn")):
                 st.session_state.work_dir = None
                 st.session_state.project_name = selected_project
                 st.session_state.step1_completed = False
@@ -6287,48 +6605,48 @@ def main():
                 st.session_state.processing_log = []
                 st.session_state.skip_step2 = False
                 st.session_state.skip_step3 = False
-                st.success(f"已切换到项目: {selected_project}")
+                st.success(get_text("project_switched").format(selected_project))
                 st.rerun()
             
             # 显示项目数据状态
             if selected_project:
                 temp_work_dir = os.path.join(projects_dir, selected_project)
                 if os.path.exists(temp_work_dir):
-                    st.markdown("**项目数据状态:**")
+                    st.markdown(get_text("project_data_status"))
                     
                     # 检查图片
-                    data_dir = os.path.join(temp_work_dir, "01.Data")
+                    data_dir = os.path.join(temp_work_dir, "Data")
                     has_images = os.path.exists(data_dir) and any(
                         f.lower().endswith(('.tif', '.tiff', '.png', '.jpg')) 
                         for root, _, files in os.walk(data_dir) for f in files
                     )
-                    st.write(f"{'✅' if has_images else '❌'} 原始图片")
+                    st.write(f"{'✅' if has_images else '❌'} {get_text('raw_images_label')}")
                     
                     # 检查Cellpose输出
-                    cellpose_dir = os.path.join(temp_work_dir, "03.Cellpose_output", "Cell_Counts")
+                    cellpose_dir = os.path.join(temp_work_dir, "Cellpose_output", "Cell_Counts")
                     has_cellpose = os.path.exists(cellpose_dir) and len(os.listdir(cellpose_dir)) > 0
-                    st.write(f"{'✅' if has_cellpose else '❌'} 细胞分割结果")
+                    st.write(f"{'✅' if has_cellpose else '❌'} {get_text('segmentation_results_label')}")
                     
                     # 检查荧光强度
-                    intensity_dir = os.path.join(temp_work_dir, "03.Cellpose_output", "Fluorescence_Intensity")
+                    intensity_dir = os.path.join(temp_work_dir, "Cellpose_output", "Fluorescence_Intensity")
                     has_intensity = os.path.exists(intensity_dir) and len(os.listdir(intensity_dir)) > 0
-                    st.write(f"{'✅' if has_intensity else '❌'} 荧光强度数据")
+                    st.write(f"{'✅' if has_intensity else '❌'} {get_text('fluorescence_data_label')}")
                     
                     # 检查图表
-                    chart_dir = os.path.join(temp_work_dir, "04.Chart")
+                    chart_dir = os.path.join(temp_work_dir, "Chart")
                     has_charts = os.path.exists(chart_dir) and any(
                         f.lower().endswith(('.png', '.jpg', '.pdf'))
                         for root, _, files in os.walk(chart_dir) for f in files
                     )
-                    st.write(f"{'✅' if has_charts else '❌'} 统计图表")
+                    st.write(f"{'✅' if has_charts else '❌'} {get_text('statistical_charts_label')}")
         
-        elif project_action == "创建新项目":
+        elif project_action == get_text("create_new"):
             new_project_name = st.text_input(
-                "新项目名称",
-                placeholder="例如: Experiment_2024",
+                get_text("new_project_name"),
+                placeholder=get_text("project_name_placeholder"),
                 key="new_project_name_input"
             )
-            if st.button("✨ 创建项目"):
+            if st.button(get_text("create_project_btn")):
                 if new_project_name and new_project_name.strip():
                     # 验证项目名称（不允许特殊字符）
                     import re
@@ -6338,12 +6656,12 @@ def main():
                         st.session_state.step1_completed = False
                         st.session_state.uploaded_files = []
                         st.session_state.processing_log = []
-                        st.success(f"已创建新项目: {new_project_name}")
+                        st.success(get_text("project_created").format(new_project_name))
                         st.rerun()
                     else:
-                        st.error("项目名称只能包含字母、数字、下划线和连字符")
+                        st.error(get_text("invalid_project_name"))
                 else:
-                    st.error("请输入有效的项目名称")
+                    st.error(get_text("enter_valid_name"))
         
         st.markdown("---")
         
@@ -6362,16 +6680,22 @@ def main():
             "python": "🐍",
             "apptainer": "📦"
         }
-        mode_name = {
-            "python": "Direct Python",
-            "apptainer": "Apptainer Container"
-        }
+        if st.session_state.get('language', 'zh') == 'en':
+            mode_name = {
+                "python": "Direct Python",
+                "apptainer": "Apptainer Container"
+            }
+        else:
+            mode_name = {
+                "python": "Python 模式",
+                "apptainer": "Apptainer 容器"
+            }
         current_mode = st.session_state.get('cellpose_mode', 'python')
-        st.info(f"Cellpose Mode: {mode_emoji.get(current_mode, '🔧')} {mode_name.get(current_mode, current_mode)}")
+        st.info(get_text("cellpose_mode_label_status").format(mode_emoji.get(current_mode, '🔧'), mode_name.get(current_mode, current_mode)))
 
         # 调试信息
-        with st.expander("🔧 Debug Info"):
-            st.write("Session State:")
+        with st.expander(get_text("debug_info_expander")):
+            st.write(get_text("session_state_label"))
             st.json({
                 "step1_completed": st.session_state.step1_completed,
                 "uploaded_files_count": len(st.session_state.uploaded_files),
@@ -6381,7 +6705,7 @@ def main():
             })
 
         # 环境检测
-        st.subheader("🔍 Environment Check")
+        st.subheader(get_text("environment_check_header"))
 
         # 检测Python环境
         try:
@@ -6408,14 +6732,14 @@ def main():
         except:
             st.error("❌ WSL")
 
-        if st.button("🗑️ Clear Working Directory"):
+        if st.button(get_text("clear_work_dir_btn")):
             if st.session_state.work_dir and os.path.exists(st.session_state.work_dir):
                 shutil.rmtree(st.session_state.work_dir)
                 st.session_state.work_dir = None
                 st.session_state.step1_completed = False
                 st.session_state.processing_log = []
                 st.session_state.uploaded_files = []
-                st.success("Working directory cleared")
+                st.success(get_text("work_dir_cleared"))
                 st.rerun()
 
 if __name__ == "__main__":
