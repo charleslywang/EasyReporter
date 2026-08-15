@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="reportGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Document background -->
+  <rect x="20" y="10" width="60" height="80" rx="4" fill="url(#reportGradient)" stroke="#dee2e6" stroke-width="2"/>
+  
+  <!-- Header section -->
+  <rect x="20" y="10" width="60" height="20" rx="4" fill="url(#headerGradient)"/>
+  
+  <!-- Title lines -->
+  <line x1="30" y1="17" x2="70" y2="17" stroke="#ffffff" stroke-width="2"/>
+  <line x1="30" y1="23" x2="55" y2="23" stroke="#ffffff" stroke-width="1.5"/>
+  
+  <!-- Content lines -->
+  <line x1="30" y1="40" x2="70" y2="40" stroke="#6c757d" stroke-width="1.5"/>
+  <line x1="30" y1="45" x2="65" y2="45" stroke="#6c757d" stroke-width="1"/>
+  <line x1="30" y1="50" x2="70" y2="50" stroke="#6c757d" stroke-width="1"/>
+  <line x1="30" y1="55" x2="60" y2="55" stroke="#6c757d" stroke-width="1"/>
+  
+  <!-- Chart representation -->
+  <rect x="30" y="62" width="40" height="20" rx="2" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+  <rect x="33" y="75" width="3" height="6" fill="#3498db"/>
+  <rect x="38" y="72" width="3" height="9" fill="#e74c3c"/>
+  <rect x="43" y="68" width="3" height="13" fill="#27ae60"/>
+  <rect x="48" y="70" width="3" height="11" fill="#f39c12"/>
+  <rect x="53" y="65" width="3" height="16" fill="#9b59b6"/>
+  <rect x="58" y="73" width="3" height="8" fill="#e67e22"/>
+  
+  <!-- Corner fold -->
+  <path d="M 70 10 L 70 20 L 80 20 Z" fill="#dee2e6"/>
+  <path d="M 70 10 L 70 18 L 78 20 Z" fill="#adb5bd"/>
+</svg>
